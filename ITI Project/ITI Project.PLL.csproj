@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ITI Project.BLL\ITI Project.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\ImgProduct\" />
+  </ItemGroup>
+
 </Project>

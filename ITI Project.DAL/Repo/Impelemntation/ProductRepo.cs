@@ -73,6 +73,7 @@ namespace ITI_Project.DAL.Repo.Impelemntation
                 data.Description = product.Description;
                 data.Price = product.Price;
                 data.Category = product.Category;
+                data.Quantity = product.Quantity;
                 db.SaveChanges();
                 return true;
             }
