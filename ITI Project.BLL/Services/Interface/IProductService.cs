@@ -13,7 +13,7 @@ namespace ITI_Project.BLL.Services.Interface
         public bool Create(CreateProductVM product);
         public bool Update(UpdateProductVM product);
         public bool Delete(int id);
-        public List<GetProductVM> GetAll();
+        public IEnumerable<GetProductVM> GetAll();
 
         public GetProductVM GetByProductId(int id);
     }

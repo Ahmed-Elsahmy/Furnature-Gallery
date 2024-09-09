@@ -53,7 +53,7 @@ namespace ITI_Project.BLL.Services.Impelemntation
             }
         }
 
-        public List<GetProductVM> GetAll()
+        public IEnumerable<GetProductVM> GetAll()
         {
             var result = ProductRepo.GetAll().Where(a => a.IsDeleted == false).ToList();
             List<GetProductVM> newResult = mapper.Map<List<GetProductVM>>(result);
