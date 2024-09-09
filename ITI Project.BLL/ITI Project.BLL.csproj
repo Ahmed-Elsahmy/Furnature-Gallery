@@ -11,8 +11,6 @@
     <Folder Include="ModelVM\" />
     <Folder Include="Mapping\" />
     <Folder Include="Helper\" />
-    <Folder Include="Services\Interface\" />
-    <Folder Include="Services\Impelemntation\" />
   </ItemGroup>
 
   <ItemGroup>
