@@ -82,5 +82,9 @@ namespace ITI_Project.DAL.Repo.Impelemntation
                 return false;
             }
         }
+        public bool IsEmailExist(string email)
+        {
+            return db.Customers.Any(a => a.Email == email);
+        }
     }
 }

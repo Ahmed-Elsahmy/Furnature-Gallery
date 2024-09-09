@@ -1,4 +1,5 @@
-﻿using ITI_Project.BLL.ModelVM;
+﻿using AutoMapper;
+using ITI_Project.BLL.ModelVM;
 using ITI_Project.BLL.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +8,12 @@ namespace ITI_Project.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService productService;
+        private readonly IMapper mapper;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService , IMapper mapper)
         {
             this.productService = productService;
+            this.mapper = mapper;
         }
 
         public IActionResult Read()
@@ -37,7 +40,7 @@ namespace ITI_Project.Controllers
                     return RedirectToAction("Read", "Product");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             { 
                 return View(product);
             }
@@ -62,9 +65,8 @@ namespace ITI_Project.Controllers
                 productService.Delete(product.Id);
                 return RedirectToAction("Read", "Product");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ViewBag.Error = ex.Message;
                 return View(product);
             }
 
@@ -75,8 +77,8 @@ namespace ITI_Project.Controllers
         public IActionResult Update(int id)
         {
             var data = productService.GetByProductId(id);
-
-            return View(data);
+            UpdateProductVM new_data = mapper.Map<UpdateProductVM>(data);
+            return View(new_data);
         }
 
 
@@ -87,13 +89,11 @@ namespace ITI_Project.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
-
                     productService.Update(product);
-                    return RedirectToAction("Read", "Employee");
+                    return RedirectToAction("Read", "Product");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View(product);
             }

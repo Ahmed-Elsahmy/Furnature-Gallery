@@ -3,6 +3,7 @@ using ITI_Project.BLL.Helper;
 using ITI_Project.BLL.ModelVM;
 using ITI_Project.BLL.Services.Interface;
 using ITI_Project.DAL.Entites;
+using ITI_Project.DAL.Repo.Impelemntation;
 using ITI_Project.DAL.Repo.Interface;
 using System;
 using System.Collections.Generic;
@@ -23,17 +24,19 @@ namespace ITI_Project.BLL.Services.Impelemntation
             this.mapper = mapper;
         }
 
-        public bool Create(CreateCustomerVM customer)
+        public (bool sucess, string message) Create(CreateCustomerVM customer)
         {
             try
             {
                 Customer new_customer = mapper.Map<Customer>(customer);
+                if (customerRepo.IsEmailExist(new_customer.Email) )
+                    return (false, "Email is already exist");
                 customerRepo.Create(new_customer);
-                return true;
+                return (true , string.Empty);
             }
             catch (Exception e)
             {
-                return false;
+                return (false , e.Message);
             }
         }
 
@@ -52,7 +55,7 @@ namespace ITI_Project.BLL.Services.Impelemntation
 
         public IEnumerable<GetCustomerVM> GetAll()
         {
-            var result = customerRepo.GetAll().Where(a => a.IsDeleted == false).ToList();
+            var result = customerRepo.GetAll().Where(a => a.IsDeleted != true).ToList();
             List<GetCustomerVM> newResult = mapper.Map<List<GetCustomerVM>>(result);
             return newResult;
         }
@@ -71,7 +74,7 @@ namespace ITI_Project.BLL.Services.Impelemntation
                 customerRepo.Update(new_customer);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

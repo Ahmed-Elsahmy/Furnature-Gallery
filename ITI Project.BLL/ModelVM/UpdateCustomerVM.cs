@@ -20,9 +20,6 @@ namespace ITI_Project.BLL.ModelVM
         public string? Phone_Number { get; set; }
         public string? Location { get; set; }
 
-        public List<Order>? Orders { get; set; }
-        public List<Rating>? Ratings { get; set; }
-        public List<Product>? FavProduct { get; set; }
-        public List<Invoice>? Invoices { get; set; }
+
     }
 }

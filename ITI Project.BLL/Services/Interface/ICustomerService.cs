@@ -9,7 +9,7 @@ namespace ITI_Project.BLL.Services.Interface
 {
     public interface ICustomerService
     {
-        public bool Create(CreateCustomerVM product);
+        public (bool sucess, string message) Create(CreateCustomerVM customer);
         public bool Update(UpdateCustomerVM product);
         public bool Delete(int id);
         public IEnumerable<GetCustomerVM> GetAll();
