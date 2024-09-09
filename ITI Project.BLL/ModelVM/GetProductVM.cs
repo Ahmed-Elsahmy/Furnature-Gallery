@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ITI_Project.BLL.ModelVM
 {
-    internal class GetProductVM
+    public class GetProductVM
     {
         [Key]
         public int Id { get; set; }

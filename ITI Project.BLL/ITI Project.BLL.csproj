@@ -10,8 +10,6 @@
   <ItemGroup>
 
     <Folder Include="Mapping\" />
-    <Folder Include="Services\Interface\" />
-    <Folder Include="Services\Impelemntation\" />
 
     <Folder Include="Helper\" />
   </ItemGroup>
