@@ -2,9 +2,11 @@
 using ITI_Project.BLL.ModelVM;
 using ITI_Project.BLL.Services.Interface;
 using ITI_Project.DAL.Entites;
+using ITI_Project.DAL.Repo.Impelemntation;
 using ITI_Project.DAL.Repo.Interface;
 using System;
 using System.Collections.Generic;
+
 
 namespace ITI_Project.BLL.Services.Implementation
 {
@@ -13,15 +15,27 @@ namespace ITI_Project.BLL.Services.Implementation
         private readonly IVendorRepo _vendorRepo;
         private readonly IMapper _mapper;
 
-        public VendorService(IVendorRepo vendorRepo, IMapper mapper) // Inject IMapper
+        public VendorService(IVendorRepo vendorRepo, IMapper mapper) 
         {
             _vendorRepo = vendorRepo;
-            _mapper = mapper; // Initialize IMapper
+            _mapper = mapper; 
         }
 
-        public IEnumerable<Vendor> GetAllVendors()
+        public IEnumerable<GetAllVendorVM> GetAllVendors()
         {
-            return _vendorRepo.GetAllVendors();
+            try
+            {
+                var vendors = _vendorRepo.GetAllVendors();
+
+                var vendorVMs = _mapper.Map<IEnumerable<GetAllVendorVM>>(vendors);
+
+                return vendorVMs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public Vendor GetVendorById(int id)
@@ -29,21 +43,24 @@ namespace ITI_Project.BLL.Services.Implementation
             return _vendorRepo.GetVendorById(id);
         }
 
-        public bool AddVendor(CreateVendorVM vendorVM)
+        public (bool sucess, string message) AddVendor(CreateVendorVM vendorVM)
         {
             try
             {
-               
-                var vendorEntity = _mapper.Map<Vendor>(vendorVM);
-
                 
-                return _vendorRepo.AddVendor(vendorEntity);
+
+                var vendorEntity = _mapper.Map<Vendor>(vendorVM);
+                if (_vendorRepo.IsEmailExist(vendorEntity.Email))
+                    return (false, "Email is already exist");
+
+
+                return (_vendorRepo.AddVendor(vendorEntity),string.Empty);
             }
             catch (Exception ex)
             {
                
                 Console.WriteLine(ex.Message);
-                return false;
+                return (false,ex.Message);
             }
         }
 
@@ -51,22 +68,44 @@ namespace ITI_Project.BLL.Services.Implementation
         {
             try
             {
-                
-                _vendorRepo.DeleteVendor(id);
+                var vendor = _vendorRepo.GetVendorById(id);
+                if (vendor == null)
+                {
+                    Console.WriteLine("Vendor not found");
+                    return false;
+                }
+
+                _vendorRepo.DeleteVendor(id); 
                 return true;
             }
             catch (Exception ex)
             {
-                
                 Console.WriteLine(ex.Message);
                 return false;
             }
         }
 
-        public bool UpdateVendor(Vendor vendor)
+        public bool UpdateVendor(UpdateVendorVM vendorVM)
         {
-            // This method is not yet implemented, but it should call the repo to update the vendor
-            throw new NotImplementedException();
+            try
+            {
+                var vendor = _vendorRepo.GetVendorById(vendorVM.Id);
+                if (vendor == null)
+                {
+                    Console.WriteLine("Vendor not found");
+                    return false;
+                }
+
+                _mapper.Map(vendorVM, vendor);
+
+                _vendorRepo.UpdateVendor(vendor);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }

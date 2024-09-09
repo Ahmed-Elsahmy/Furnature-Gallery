@@ -22,6 +22,7 @@ namespace ITI_Project.DAL.Repo.Impelemntation
         {
             try
             {
+                
                 db.Vendor.Add(vendor);
                 db.SaveChanges();
                 return true;
@@ -38,10 +39,10 @@ namespace ITI_Project.DAL.Repo.Impelemntation
         {
             try
             {
-                var emp = db.Vendor.FirstOrDefault(e => e.Id == id);
-                if (emp != null)
+                var ven = db.Vendor.FirstOrDefault(e => e.Id == id);
+                if (ven != null)
                 {
-                    emp.IsDeleted = !emp.IsDeleted;
+                    ven.IsDeleted = !ven.IsDeleted;
                     db.SaveChanges();
                     return true;
                 }
@@ -81,6 +82,10 @@ namespace ITI_Project.DAL.Repo.Impelemntation
             {
                 return false;
             }
+        }
+        public bool IsEmailExist(string email)
+        {
+            return db.Vendor.Any(a => a.Email == email);
         }
     }
 }
