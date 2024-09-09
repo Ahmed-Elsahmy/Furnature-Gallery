@@ -1,5 +1,9 @@
 using ITI_Project.DAL.DB.ApplicationDB;
+using ITI_Project.DAL.Repo.Impelemntation;
+using ITI_Project.DAL.Repo.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer("name=DefaultConnection"));
+builder.Services.AddScoped<IVendorRepo, VendorRepo>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
