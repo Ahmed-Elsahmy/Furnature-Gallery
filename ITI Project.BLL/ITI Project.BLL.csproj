@@ -8,9 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ModelVM\" />
-    <Folder Include="Mapping\" />
     <Folder Include="Helper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
