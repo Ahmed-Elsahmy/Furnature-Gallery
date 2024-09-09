@@ -23,6 +23,7 @@ namespace ITI_Project.BLL.Mapping
 
             CreateMap<UpdateProductVM, Product>();
             CreateMap<Product, UpdateProductVM>();
+            CreateMap<Order,OrderModelVM>().ReverseMap();
 
             CreateMap<UpdateProductVM, GetProductVM>();
             CreateMap<GetProductVM, UpdateProductVM>();
