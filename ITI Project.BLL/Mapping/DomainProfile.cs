@@ -11,6 +11,9 @@ namespace ITI_Project.BLL.Mapping
 
             CreateMap<CreateVendorVM, Vendor>();
 
+            CreateMap<UpdateVendorVM, Vendor>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
             CreateMap <CreateProductVM, Product>();
             CreateMap<Product, CreateProductVM>();
 
@@ -19,6 +22,7 @@ namespace ITI_Project.BLL.Mapping
 
             CreateMap<UpdateProductVM, Product>();
             CreateMap<Product, UpdateProductVM>();
+
         }
     }
 }
