@@ -22,5 +22,7 @@ namespace ITI_Project.DAL.Entites
         public int? VendorID { get; set; }
         public Vendor? Vendor { get; set; }
         public List<Rating>? Ratings { get; set; }
+        
+        public bool IsDeleted { get; set; }
     }
 }
