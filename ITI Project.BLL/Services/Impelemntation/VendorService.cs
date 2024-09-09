@@ -34,7 +34,7 @@ namespace ITI_Project.BLL.Services.Implementation
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return Enumerable.Empty<GetAllVendorVM>();
             }
         }
 

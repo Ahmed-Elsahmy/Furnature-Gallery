@@ -1,3 +1,6 @@
+using ITI_Project.BLL.Mapping;
+using ITI_Project.BLL.Services.Implementation;
+using ITI_Project.BLL.Services.Interface;
 using ITI_Project.DAL.DB.ApplicationDB;
 using ITI_Project.DAL.Repo.Impelemntation;
 using ITI_Project.DAL.Repo.Interface;
@@ -8,6 +11,13 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IVendorService, VendorService>();
+builder.Services.AddScoped<IVendorRepo, VendorRepo>(); // Register your repository as well
+
+builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
+
+// Add services to the container.
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer("name=DefaultConnection"));
@@ -29,6 +39,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+
 
 app.MapControllerRoute(
     name: "default",

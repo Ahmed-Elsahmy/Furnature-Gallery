@@ -10,7 +10,8 @@ namespace ITI_Project.BLL.Mapping
         {
 
             CreateMap<CreateVendorVM, Vendor>();
-
+            CreateMap<Vendor, GetAllVendorVM>();
+            CreateMap<Vendor, UpdateVendorVM>().ReverseMap();
             CreateMap<UpdateVendorVM, Vendor>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
