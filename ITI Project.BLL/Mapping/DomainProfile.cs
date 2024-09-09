@@ -23,6 +23,16 @@ namespace ITI_Project.BLL.Mapping
             CreateMap<UpdateProductVM, Product>();
             CreateMap<Product, UpdateProductVM>();
 
+
+            CreateMap<CreateCustomerVM, Product>();
+            CreateMap<Product, CreateCustomerVM>();
+
+            CreateMap<GetCustomerVM, Product>();
+            CreateMap<Product, GetCustomerVM>();
+
+            CreateMap<UpdateCustomerVM, Product>();
+            CreateMap<Product, UpdateCustomerVM>();
+
         }
     }
 }
