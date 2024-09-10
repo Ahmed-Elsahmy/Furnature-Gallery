@@ -41,6 +41,9 @@ namespace ITI_Project.BLL.Mapping
             CreateMap<UpdateCustomerVM, GetCustomerVM>();
             CreateMap<GetCustomerVM, UpdateCustomerVM>();
 
+            //orderitems
+            CreateMap<OrderItem,OrderItemsVM>().ReverseMap();
+
         }
     }
 }
