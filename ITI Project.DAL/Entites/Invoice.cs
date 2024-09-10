@@ -16,11 +16,12 @@ namespace ITI_Project.DAL.Entites
         public double? NetPrice { get; set; }
         public string? PaymentMethod { get; set; }
         public DateTime PaymentDate { get; set; }
-        public bool? IsPaied { get; set; }
+        public bool? IsPaid { get; set; }
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
         public int? OrderId { get; set; }
         public Order? Order { get; set; }
+        public bool? isDeleted { get; set; }
 
 
 

@@ -38,7 +38,7 @@ namespace ITI_Project.DAL.Repo.Impelemntation
                 var data = db.Products.Where(a => a.Id == id).FirstOrDefault();
                 if (data.IsDeleted)
                 {
-                    throw new Exception("The Employee is already deleted");
+                    throw new Exception("The Product is already deleted");
 
                 }
                 data.IsDeleted = true;

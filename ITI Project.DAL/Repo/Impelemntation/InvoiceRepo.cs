@@ -4,25 +4,24 @@ using ITI_Project.DAL.Repo.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ITI_Project.DAL.Repo.Impelemntation
 {
-    public class CustomerRepo : ICustomerRepo
+    public class InvoiceRepo : IINvoiceRepo
     {
         private readonly ApplicationDbContext db;
 
-        public CustomerRepo(ApplicationDbContext dbContext)
+        public InvoiceRepo(ApplicationDbContext dbContext)
         {
             db = dbContext;
         }
-        public bool Create(Customer customer)
+        public bool Create(Invoice invoice)
         {
             try
             {
-                db.Customers.Add(customer);
+                db.Invoices.Add(invoice);
                 db.SaveChanges();
                 return true;
             }
@@ -36,13 +35,13 @@ namespace ITI_Project.DAL.Repo.Impelemntation
         {
             try
             {
-                var data = db.Customers.Where(a => a.Id == id).FirstOrDefault();
-                if (data.IsDeleted == true)
+                var data = db.Invoices.Where(a => a.Id == id).FirstOrDefault();
+                if (data.isDeleted == true)
                 {
-                    throw new Exception("The Customer is already deleted");
+                    throw new Exception("The Invoice is already deleted");
 
                 }
-                data.IsDeleted = true;
+                data.isDeleted = true;
                 db.SaveChanges();
                 return true;
             }
@@ -52,28 +51,30 @@ namespace ITI_Project.DAL.Repo.Impelemntation
             }
         }
 
-        public List<Customer> GetAll()
+        public List<Invoice> GetAll()
         {
-            var result = db.Customers.ToList();
+            var result = db.Invoices.ToList();
             return result;
         }
 
-        public Customer GetByCustomerId(int id)
+        public Invoice GetByInvoiceId(int id)
         {
-            var data = db.Customers.Where(a => a.Id == id).FirstOrDefault();
+            var data = db.Invoices.Where(a => a.Id == id).FirstOrDefault();
             return data;
         }
 
-        public bool Update(Customer customer)
+        public bool Update(Invoice invoice)
         {
             try
             {
-                var data = db.Customers.Where(a => a.Id == customer.Id).FirstOrDefault();
+                var data = db.Invoices.Where(a => a.Id == invoice.Id).FirstOrDefault();
 
-                data.Age = customer.Age;
-                data.Name = customer.Name;
-                data.Phone_Number = customer.Phone_Number;
-                data.Location = customer.Location;
+                data.OrderId = invoice.OrderId; 
+                data.TotallPrice    = invoice.TotallPrice;
+                data.TotallPrice = invoice.TotallPrice;
+                data.PaymentMethod =  invoice.PaymentMethod;
+                data.IsPaid = invoice.IsPaid;
+                data.PaymentDate = invoice.PaymentDate;
                 db.SaveChanges();
                 return true;
             }
@@ -81,10 +82,6 @@ namespace ITI_Project.DAL.Repo.Impelemntation
             {
                 return false;
             }
-        }
-        public bool IsEmailExist(string email)
-        {
-            return db.Customers.Any(a => a.Email == email);
         }
     }
 }
