@@ -13,7 +13,6 @@ namespace ITI_Project.DAL.Repo.Interface
         public bool Update(Product product);
         public bool Delete(int id);
         public List<Product> GetAll();
-
         public Product GetByProductId(int id);
 
     }
