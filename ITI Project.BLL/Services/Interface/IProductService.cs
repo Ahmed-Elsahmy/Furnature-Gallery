@@ -16,5 +16,9 @@ namespace ITI_Project.BLL.Services.Interface
         public IEnumerable<GetProductVM> GetAll();
 
         public GetProductVM GetByProductId(int id);
+
+        public List<GetProductVM> GetByCategory(string Category);
+        public List<GetProductVM> GetByVendor(int VendorId);
+        public List<GetProductVM> GetByVendorAndCategory(string Category, int VendorId);
     }
 }

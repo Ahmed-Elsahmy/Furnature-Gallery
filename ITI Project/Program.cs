@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using ITI_Project.BLL.Services.Impelemntation;
+using ITI_Project.DAL.Entites;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +36,27 @@ builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IRatingRepo, RatingRepo>();
 builder.Services.AddScoped<IINvoiceRepo, InvoiceRepo>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IFavoriteRepo, FavoriteRepo>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+
+
+//use configuration
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    // Identity options here
+    options.SignIn.RequireConfirmedAccount = false; // Adjust as per your needs
+})
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+   .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+       options =>
+       {
+           options.LoginPath = new PathString("/Account/Register");
+           options.AccessDeniedPath = new PathString("/Account/Register");
+       });
+
 
 
 
@@ -50,7 +74,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 
