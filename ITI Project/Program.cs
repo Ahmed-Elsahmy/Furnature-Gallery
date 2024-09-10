@@ -25,9 +25,13 @@ builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddAutoMapper(x => x.AddProfile(new DomainProfile()));
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
-
 builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+/// order itmes
+builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
+
+
 
 var app = builder.Build();
 
