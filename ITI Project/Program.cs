@@ -27,9 +27,12 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<ICustomerRepo, CustomerRepo>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-/// order itmes
 builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
 builder.Services.AddScoped<IOrderItemsService, OrderItemsService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IRatingRepo, RatingRepo>();
+builder.Services.AddScoped<IINvoiceRepo, InvoiceRepo>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 
 
