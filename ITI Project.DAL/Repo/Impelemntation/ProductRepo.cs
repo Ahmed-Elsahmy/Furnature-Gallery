@@ -57,9 +57,27 @@ namespace ITI_Project.DAL.Repo.Impelemntation
             return result;
         }
 
+        public List<Product> GetByCategory(string Category)
+        {
+            var data = db.Products.Where(a => a.Category == Category).ToList();
+            return data;
+        }
+
         public Product GetByProductId(int id)
         {
             var data = db.Products.Where(a => a.Id == id).FirstOrDefault();
+            return data;
+        }
+
+        public List<Product> GetByVendor(int VendorId)
+        {
+            var data = db.Products.Where(a => a.VendorID == VendorId).ToList();
+            return data;
+        }
+
+        public List<Product> GetByVendorAndCategory(string Category, int VendorId)
+        {
+            var data = db.Products.Where(a => a.VendorID ==VendorId && a.Category == Category).ToList();
             return data;
         }
 

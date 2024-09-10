@@ -60,10 +60,27 @@ namespace ITI_Project.BLL.Services.Impelemntation
             return newResult;
         }
 
+        public List<GetProductVM> GetByCategory(string Category)
+        {
+            return  mapper.Map<List< GetProductVM >> (ProductRepo.GetByCategory(Category));
+           
+        }
+
         public GetProductVM GetByProductId(int id)
         {
             Product product = ProductRepo.GetByProductId(id);
             return mapper.Map<GetProductVM>(product);
+        }
+
+        public List<GetProductVM> GetByVendor(int VendorId)
+        {
+            return mapper.Map<List<GetProductVM>>(ProductRepo.GetByVendor(VendorId));
+        }
+
+        public List<GetProductVM> GetByVendorAndCategory(string Category, int VendorId)
+        {
+            return mapper.Map<List<GetProductVM>>(ProductRepo.GetByVendorAndCategory(Category , VendorId));
+
         }
 
         public bool Update(UpdateProductVM product)

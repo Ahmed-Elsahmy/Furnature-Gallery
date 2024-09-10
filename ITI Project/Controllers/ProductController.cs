@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ITI_Project.BLL.ModelVM;
 using ITI_Project.BLL.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITI_Project.Controllers
@@ -23,6 +24,7 @@ namespace ITI_Project.Controllers
         }
 
         [HttpGet]
+        [Authorize (Roles ="Vendor")]
         public IActionResult Create()
         {
             var product = new CreateProductVM();
@@ -30,6 +32,7 @@ namespace ITI_Project.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Vendor")]
         public IActionResult Create(CreateProductVM product)
         {
             try
