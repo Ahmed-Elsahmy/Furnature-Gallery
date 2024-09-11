@@ -73,6 +73,9 @@ namespace ITI_Project.BLL.Mapping
             CreateMap<UpdateInvoiceVM, GetInvoiceVM>();
 
             CreateMap<Notification, AddNotificationVM>().ReverseMap();
+            CreateMap<Follow, FollowVM>();
+            CreateMap<FollowVM, Follow>();
+
 
         }
     }
