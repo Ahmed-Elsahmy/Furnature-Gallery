@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using ITI_Project.BLL.ModelVM;
+using ITI_Project.BLL.Services.Impelemntation;
 using ITI_Project.BLL.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ITI_Project.Controllers
 {
@@ -11,7 +13,7 @@ namespace ITI_Project.Controllers
         private readonly IProductService productService;
         private readonly IMapper mapper;
 
-        public ProductController(IProductService productService , IMapper mapper)
+        public ProductController(IProductService productService, IMapper mapper)
         {
             this.productService = productService;
             this.mapper = mapper;
@@ -24,7 +26,7 @@ namespace ITI_Project.Controllers
         }
 
         [HttpGet]
-        [Authorize (Roles ="Vendor")]
+        [Authorize(Roles = "Vendor")]
         public IActionResult Create()
         {
             var product = new CreateProductVM();
@@ -44,7 +46,7 @@ namespace ITI_Project.Controllers
                 }
             }
             catch (Exception)
-            { 
+            {
                 return View(product);
             }
 
@@ -104,5 +106,6 @@ namespace ITI_Project.Controllers
             return View(product);
 
         }
+
     }
 }

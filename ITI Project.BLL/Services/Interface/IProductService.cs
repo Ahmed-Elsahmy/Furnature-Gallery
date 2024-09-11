@@ -20,5 +20,6 @@ namespace ITI_Project.BLL.Services.Interface
         public List<GetProductVM> GetByCategory(string Category);
         public List<GetProductVM> GetByVendor(int VendorId);
         public List<GetProductVM> GetByVendorAndCategory(string Category, int VendorId);
+        
     }
 }

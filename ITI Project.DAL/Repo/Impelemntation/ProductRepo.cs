@@ -1,6 +1,7 @@
 ﻿using ITI_Project.DAL.DB.ApplicationDB;
 using ITI_Project.DAL.Entites;
 using ITI_Project.DAL.Repo.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,6 +80,23 @@ namespace ITI_Project.DAL.Repo.Impelemntation
         {
             var data = db.Products.Where(a => a.VendorID ==VendorId && a.Category == Category).ToList();
             return data;
+        }
+
+        public IEnumerable<Product> GetProductsBySearchAndCategory(string searchTerm, string category)
+        {
+            var query = db.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(p => p.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return query.ToList();
         }
 
         public bool Update(Product product)
