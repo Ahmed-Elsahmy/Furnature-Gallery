@@ -15,31 +15,32 @@ namespace ITI_Project.BLL.Services.Impelemntation
     public class NotificationService:INotificationService
     {
         private readonly INotificationRepo _notificationRepository;
+        private readonly IFollowRepo followRepo;
         private readonly IMapper _mapper; 
 
         private readonly IVendorRepo _vendorRepository;
 
         public IVendorRepo VendorRepository => _vendorRepository;
 
-        public NotificationService(IVendorRepo vendorRepository, INotificationRepo notificationRepository)
+        public NotificationService(IVendorRepo vendorRepository, INotificationRepo notificationRepository , IFollowRepo followRepo)
         {
             _vendorRepository = vendorRepository;
             _notificationRepository = notificationRepository;
+            this.followRepo = followRepo;
         }
 
         public void SendNotificationToFollowers(int vendorId, string message)
         {
             try
             {
-              
-                var vendor = VendorRepository.GetVendorById(vendorId); 
-                var followers = vendor.Followers; 
+
+                var followers = followRepo.GetAllFollowers(vendorId);
 
                 foreach (var follower in followers)
                 {
                     var notification = new Notification
                     {
-                        CustomerId = follower.Id,  
+                        CustomerId = follower.CustomerId,  
                         Message = message,
                         CreatedAt = DateTime.Now,
                         IsRead = false
