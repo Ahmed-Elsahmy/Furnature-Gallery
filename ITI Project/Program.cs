@@ -39,6 +39,12 @@ builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<IFavoriteRepo, FavoriteRepo>();
 builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 
+builder.Services.AddScoped<IFollowRepo, FollowRepo>();
+builder.Services.AddScoped<IFollowService, FollowService>();
+
+builder.Services.AddScoped<INotificationRepo, NotificationRepo>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
 
 //use configuration
 builder.Services.AddIdentity<User, IdentityRole>(options =>
