@@ -10,8 +10,7 @@ namespace ITI_Project.BLL.ModelVM
 {
     public class CreateInvoiceVM
     {
-        [Key]
-        public int Id { get; set; }
+
         public DateTime InvoiceDate { get; set; } = DateTime.Now;
         public double? TotallPrice { get; set; }
         public double? NetPrice { get; set; }

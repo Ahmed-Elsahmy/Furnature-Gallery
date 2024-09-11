@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ITI_Project.DAL.Repo.Impelemntation
 {
-    public class OrderRepo:IOrderRepo
+    public class OrderRepo : IOrderRepo
     {
         private readonly ApplicationDbContext db;
 
@@ -50,5 +50,47 @@ namespace ITI_Project.DAL.Repo.Impelemntation
                 db.SaveChanges();
             }
         }
+
+        public void AddOrderItem(int id, Product item)
+        {
+
+            Order order = db.Order.Where(a => a.Id == id).FirstOrDefault();
+
+            bool isExist = order.Items.Any(a => a.ProductId == item.Id);
+            if (isExist)
+            {
+                OrderItem current = order.Items.Where(a => a.ProductId == item.Id).FirstOrDefault();
+                current.Quantity += 1;
+                current.TotalPrice = item.Price * current.Quantity;
+                db.SaveChanges();
+            }
+            else
+            {
+                OrderItem new_item = new OrderItem();
+                new_item.ProductId = item.Id;
+                new_item.VendorId = item.VendorID;
+                new_item.OrderId = id;
+                new_item.UnitPrice = item.Price;
+                new_item.TotalPrice = item.Price;
+                new_item.Status = "ordered";
+                order.Items.Add(new_item);
+                db.SaveChanges();
+            }
+        }
+
+        public void RemoveItem(int id, Product item)
+        {
+            Order order = db.Order.Where(a => a.Id == id).FirstOrDefault();
+            bool isExist = order.Items.Any(a => a.ProductId == item.Id);
+            if (isExist)
+            {
+
+                OrderItem current = order.Items.Where(a => a.ProductId == item.Id).FirstOrDefault();
+                current.Quantity -= 1;
+                current.TotalPrice = item.Price * current.Quantity;
+                db.SaveChanges();
+            }
+        }
+
     }
 }

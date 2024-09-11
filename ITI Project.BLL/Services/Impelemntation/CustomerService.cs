@@ -16,6 +16,7 @@ namespace ITI_Project.BLL.Services.Impelemntation
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepo customerRepo;
+        private readonly IOrderRepo orderRepo;
         private readonly IMapper mapper;
 
         public CustomerService(ICustomerRepo customerRepo, IMapper mapper)
@@ -80,5 +81,53 @@ namespace ITI_Project.BLL.Services.Impelemntation
             }
 
         }
+        public bool? HasOrderNow(int CustomerId)
+        {
+            var customer = customerRepo.GetByCustomerId(CustomerId);
+            return customer.hasOrder == true;
+        }
+        
+        public void AddToMyCart(int CustomerId , GetProductVM product)
+        {
+            var customer = customerRepo.GetByCustomerId(CustomerId);
+            Product new_product = mapper.Map<Product>(product);
+            if (customer.hasOrder == true)
+            {
+                orderRepo.AddOrderItem(customer.CurrentOrderId, new_product);
+            }
+            else
+            {
+                Order new_order = new Order();
+                new_order.CustomerId = CustomerId;
+                orderRepo.AddOrderItem(new_order.Id, new_product);
+                customer.hasOrder = true;
+                customer.CurrentOrderId = new_order.Id;
+                customer.Orders.Add(new_order);
+               
+            }
+            customerRepo.SaveChanges();
+        }
+
+        public void RemoveFromMyCart(int CustomerId, GetProductVM product)
+        {
+            var customer = customerRepo.GetByCustomerId(CustomerId);
+            Product new_product = mapper.Map<Product>(product);
+            if (customer.hasOrder == true)
+            {
+                orderRepo.RemoveItem(customer.CurrentOrderId, new_product);
+            }
+            customerRepo.SaveChanges();
+        }
+
+
+        public void MakeCartEmpty(int customerId)
+        {
+            var customer = customerRepo.GetByCustomerId(customerId);
+            customer.hasOrder = false;
+            customer.CurrentOrderId = 0;
+            customerRepo.SaveChanges();
+
+        }
+
     }
 }

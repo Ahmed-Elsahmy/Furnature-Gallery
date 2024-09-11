@@ -86,5 +86,11 @@ namespace ITI_Project.DAL.Repo.Impelemntation
         {
             return db.Customers.Any(a => a.Email == email);
         }
+
+        public void SaveChanges()
+        {
+            db.SaveChanges();
+        }
+
     }
 }

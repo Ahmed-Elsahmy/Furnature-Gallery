@@ -15,10 +15,17 @@ namespace ITI_Project.BLL.ModelVM
         [Required]
         public string Name { get; set; }
 
+
         public int? Age { get; set; }
         public bool? IsDeleted { get; set; }
         public string? Phone_Number { get; set; }
         public string? Location { get; set; }
 
+        public List<Order>? Orders { get; set; }
+        public bool? hasOrder { get; set; }
+        public int CurrentOrderId { get; set; }
+
     }
+
+
 }
