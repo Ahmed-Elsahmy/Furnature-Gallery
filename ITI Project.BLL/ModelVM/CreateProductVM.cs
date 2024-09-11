@@ -12,8 +12,7 @@ namespace ITI_Project.BLL.ModelVM
     public class CreateProductVM
     {
 
-        [Key]
-        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
         public IFormFile? ImageName { get; set; }

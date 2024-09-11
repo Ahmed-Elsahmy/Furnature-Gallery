@@ -10,8 +10,7 @@ namespace ITI_Project.BLL.ModelVM
 {
     public class CreateCustomerVM
     {
-        [Key]
-        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 

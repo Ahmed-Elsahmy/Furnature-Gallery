@@ -4,6 +4,7 @@ using ITI_Project.DAL.DB.ApplicationDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITI_Project.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911114137_AddFieldsToCustomer")]
+    partial class AddFieldsToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace ITI_Project.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CustomerVendor", b =>
-                {
-                    b.Property<int>("FollowId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FollowersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FollowId", "FollowersId");
-
-                    b.HasIndex("FollowersId");
-
-                    b.ToTable("CustomerVendor");
-                });
 
             modelBuilder.Entity("ITI_Project.DAL.Entites.Customer", b =>
                 {
@@ -173,33 +161,6 @@ namespace ITI_Project.DAL.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("ITI_Project.DAL.Entites.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsRead")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("ITI_Project.DAL.Entites.Order", b =>
@@ -610,21 +571,6 @@ namespace ITI_Project.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CustomerVendor", b =>
-                {
-                    b.HasOne("ITI_Project.DAL.Entites.Vendor", null)
-                        .WithMany()
-                        .HasForeignKey("FollowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITI_Project.DAL.Entites.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("FollowersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ITI_Project.DAL.Entites.Favorite", b =>
                 {
                     b.HasOne("ITI_Project.DAL.Entites.Customer", "Customer")
@@ -668,15 +614,6 @@ namespace ITI_Project.DAL.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("ITI_Project.DAL.Entites.Notification", b =>
-                {
-                    b.HasOne("ITI_Project.DAL.Entites.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("ITI_Project.DAL.Entites.Order", b =>

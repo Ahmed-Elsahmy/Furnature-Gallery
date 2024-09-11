@@ -10,8 +10,7 @@ namespace ITI_Project.BLL.ModelVM
 {
     public class CreateRatingVM
     {
-        [Key]
-        public int Id { get; set; }
+
         public int? RatingValue { get; set; }
         public string? ReviewText { get; set; }
         public DateTime RatingDate { get; set; } = DateTime.Now;
