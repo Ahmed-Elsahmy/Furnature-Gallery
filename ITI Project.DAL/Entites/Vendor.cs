@@ -23,5 +23,6 @@ namespace ITI_Project.DAL.Entites
         public string? Phone_Number { get; set; }
         public string? Location { get; set; } 
         public List<Product>? Products { get; set; }
+        public List<Customer>? Followers { get; set; }
     }
 }

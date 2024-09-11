@@ -26,5 +26,6 @@ namespace ITI_Project.DAL.Entites
         public List<Rating>? Ratings { get; set; }
         public List<Product>? FavProduct { get; set; }
         public List<Invoice>? Invoices { get; set; }
+        public List<Vendor>? Follow { get; set; }
     }
 }

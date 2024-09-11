@@ -22,6 +22,7 @@ namespace ITI_Project.DAL.DB.ApplicationDB
         public DbSet<Follow> follows { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet <Notification> Notifications { get; set; }
 
 
 
