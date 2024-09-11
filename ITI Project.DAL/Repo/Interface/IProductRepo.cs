@@ -17,6 +17,7 @@ namespace ITI_Project.DAL.Repo.Interface
         public List<Product> GetByCategory(string Category);
         public List<Product> GetByVendor(int VendorId);
         public List<Product> GetByVendorAndCategory(string Category , int VendorId);
+        IEnumerable<Product> GetProductsBySearchAndCategory(string searchTerm, string category);
 
 
 
